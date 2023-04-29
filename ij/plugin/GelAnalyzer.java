@@ -617,6 +617,47 @@ class PlotsCanvas extends ImageCanvas {
 		//Toolbar.getInstance().setTool(Toolbar.RECTANGLE);
 		reset();
 	}
+	void annotation(){
+		public static void main(String[] args) {
+        // Open the gel image
+        ImagePlus imp = IJ.openImage("path/to/gel/image.tif");
+
+        // Create a new overlay to store the annotations
+        Overlay overlay = new Overlay();
+
+        // Define the annotation parameters
+        int positionX = 100; // x-coordinate of the annotation
+        int positionY = 200; // y-coordinate of the annotation
+        int width = 50; // width of the annotation
+        int height = 50; // height of the annotation
+        String label = "Band 1"; // label text of the annotation
+
+        // Create a new annotation as an oval ROI
+        OvalRoi annotation = new OvalRoi(positionX, positionY, width, height);
+
+        // Set the label of the annotation
+        annotation.setName(label);
+
+        // Add the annotation to the overlay
+        overlay.add(annotation);
+
+        // Display the overlay on the gel image
+        imp.setOverlay(overlay);
+
+        // Save the annotated image
+        IJ.saveAs(imp, "TIFF", "path/to/annotated/image.tif");
+
+        // Optionally, save the annotations to a ROI Manager
+        RoiManager roiManager = RoiManager.getInstance();
+        if (roiManager == null) {
+            roiManager = new RoiManager();
+        }
+        roiManager.addRoi(annotation);
+        roiManager.runCommand("Save", "path/to/roi/manager.roi");
+    }
+}
+		
+		
 
 	void displayPercentages() {
 		ResultsTable rt = ResultsTable.getResultsTable();
